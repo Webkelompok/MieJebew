@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Sekarang - Mie Jebew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --flame-red: #D32F2F;
+            --deep-red: #8B0000;
+            --sunset-orange: #FF6B35;
+            --warm-yellow: #FFB300;
+            --cream: #FFF8E7;
+            --dark-brown: #2C1810;
+            --charcoal: #1A1A1A;
+            --soft-white: #FAFAFA;
+            --success-green: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--flame-red);
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0 var(--sunset-orange);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--sunset-orange);
+        }
+
+        .order-container {
+            max-width: 900px;
+            margin: 120px auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .order-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .order-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--flame-red);
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .order-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .order-form {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--flame-red);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--cream);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--cream);
+            border-radius: 10px;
+            font-family: 'Merriweather', serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--sunset-orange);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .product-selector {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            background: var(--cream);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .product-item:hover {
+            background: white;
+            border-color: var(--sunset-orange);
+            transform: translateX(5px);
+        }
+
+        .product-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 0.3rem;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--flame-red);
+            letter-spacing: 1px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: var(--sunset-orange);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            background: var(--flame-red);
+            transform: scale(1.1);
+        }
+
+        .qty-display {
+            font-weight: 700;
+            font-size: 1.2rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .level-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .level-option {
+            padding: 1rem;
+            background: var(--cream);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .level-option:hover {
+            border-color: var(--sunset-orange);
+        }
+
+        .level-option input[type="radio"] {
+            display: none;
+        }
+
+        .level-option input[type="radio"]:checked + .level-content {
+            color: white;
+        }
+
+        .level-option input[type="radio"]:checked ~ * {
+            color: white;
+        }
+
+        .level-option:has(input[type="radio"]:checked) {
+            background: linear-gradient(135deg, var(--flame-red), var(--sunset-orange));
+            border-color: var(--flame-red);
+        }
+
+        .level-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            display: block;
+        }
+
+        .level-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .order-summary {
+            background: linear-gradient(135deg, var(--sunset-orange), var(--warm-yellow));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .summary-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            color: var(--dark-brown);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(0, 0, 0, 0.2);
+            color: var(--dark-brown);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--success-green), #20c997);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(40, 167, 69, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .delivery-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .delivery-option {
+            padding: 1.5rem;
+            background: var(--cream);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .delivery-option:hover {
+            border-color: var(--sunset-orange);
+        }
+
+        .delivery-option input[type="radio"] {
+            display: none;
+        }
+
+        .delivery-option:has(input[type="radio"]:checked) {
+            background: var(--sunset-orange);
+            border-color: var(--sunset-orange);
+            color: white;
+        }
+
+        .delivery-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .delivery-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .order-header h1 { font-size: 2.5rem; }
+            .order-form { padding: 2rem 1.5rem; }
+            .nav-links { gap: 1.5rem; }
+            .nav-links a { font-size: 0.85rem; }
+            .logo { font-size: 2rem; }
+            .level-selector { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">MIE JEBEW</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Tentang Kami</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html" class="active">Pesan</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="order-container">
+        <div class="order-header">
+            <h1>Pesan Sekarang</h1>
+            <p>Pilih menu favoritmu dan tentukan level pedasnya!</p>
+        </div>
+
+        <form class="order-form" id="orderForm">
+            <!-- Data Pembeli -->
+            <div class="form-section">
+                <h3 class="section-title">Data Pembeli</h3>
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap *</label>
+                    <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap">
+                </div>
+                <div class="form-group">
+                    <label for="notelp">Nomor WhatsApp *</label>
+                    <input type="tel" id="notelp" name="notelp" required placeholder="08xx-xxxx-xxxx">
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat Lengkap *</label>
+                    <textarea id="alamat" name="alamat" rows="3" required placeholder="Jl. Contoh No. 123, RT/RW, Kelurahan..."></textarea>
+                </div>
+            </div>
+
+            <!-- Metode Pengiriman -->
+            <div class="form-section">
+                <h3 class="section-title">Metode Pengiriman</h3>
+                <div class="delivery-options">
+                    <label class="delivery-option">
+                        <input type="radio" name="delivery" value="Dine In" required>
+                        <span class="delivery-icon">🏪</span>
+                        <span class="delivery-name">Dine In</span>
+                    </label>
+                    <label class="delivery-option">
+                        <input type="radio" name="delivery" value="Take Away">
+                        <span class="delivery-icon">🥡</span>
+                        <span class="delivery-name">Take Away</span>
+                    </label>
+                    <label class="delivery-option">
+                        <input type="radio" name="delivery" value="Delivery">
+                        <span class="delivery-icon">🛵</span>
+                        <span class="delivery-name">Delivery</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Pilih Menu -->
+            <div class="form-section">
+                <h3 class="section-title">Pilih Menu</h3>
+                <div class="product-selector">
+                    <div class="product-item" data-price="15000" data-name="Mie Jebew Original">
+                        <input type="checkbox" id="product1" class="product-checkbox">
+                        <label for="product1" style="cursor: pointer; flex: 1; display: flex; align-items: center;">
+                            <div class="product-info">
+                                <div class="product-name">Mie Jebew</div>
+                            </div>
+                        </label>
+                        <div class="product-price">Rp 15.000</div>
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn qty-minus">-</button>
+                            <span class="qty-display">1</span>
+                            <button type="button" class="qty-btn qty-plus">+</button>
+                        </div>
+                    </div>
+
+                    <div class="product-item" data-price="20000" data-name="Mie Kuah Komplit">
+                        <input type="checkbox" id="product2" class="product-checkbox">
+                        <label for="product2" style="cursor: pointer; flex: 1; display: flex; align-items: center;">
+                            <div class="product-info">
+                                <div class="product-name">Dimsum Keju Goreng</div>
+                            </div>
+                        </label>
+                        <div class="product-price">Rp 20.000</div>
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn qty-minus">-</button>
+                            <span class="qty-display">1</span>
+                            <button type="button" class="qty-btn qty-plus">+</button>
+                        </div>
+                    </div>
+
+                    <div class="product-item" data-price="18000" data-name="Mie Goreng Original">
+                        <input type="checkbox" id="product3" class="product-checkbox">
+                        <label for="product3" style="cursor: pointer; flex: 1; display: flex; align-items: center;">
+                            <div class="product-info">
+                                <div class="product-name">Udang Keju</div>
+                            </div>
+                        </label>
+                        <div class="product-price">Rp 15.000</div>
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn qty-minus">-</button>
+                            <span class="qty-display">1</span>
+                            <button type="button" class="qty-btn qty-plus">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level Pedas -->
+            <div class="form-section">
+                <h3 class="section-title">Level Pedas Mie Jebew</h3>
+                <div class="level-selector">
+                    <label class="level-option">
+                        <input type="radio" name="level" value="Level 1" required>
+                        <div class="level-content">
+                            <span class="level-num">1</span>
+                            <span class="level-label">Santai</span>
+                        </div>
+                    </label>
+                    <label class="level-option">
+                        <input type="radio" name="level" value="Level 3">
+                        <div class="level-content">
+                            <span class="level-num">3</span>
+                            <span class="level-label">Sedang</span>
+                        </div>
+                    </label>
+                    <label class="level-option">
+                        <input type="radio" name="level" value="Level 5">
+                        <div class="level-content">
+                            <span class="level-num">5</span>
+                            <span class="level-label">Panas</span>
+                        </div>
+                    </label>
+                    <label class="level-option">
+                        <input type="radio" name="level" value="Level 7">
+                        <div class="level-content">
+                            <span class="level-num">7</span>
+                            <span class="level-label">Pedas</span>
+                        </div>
+                    </label>
+                    <label class="level-option">
+                        <input type="radio" name="level" value="Level 10">
+                        <div class="level-content">
+                            <span class="level-num">10</span>
+                            <span class="level-label">Jebew!</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Catatan -->
+            <div class="form-section">
+                <h3 class="section-title">Catatan Tambahan (Opsional)</h3>
+                <div class="form-group">
+                    <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: Tanpa sawi, tambah sambal, dll..."></textarea>
+                </div>
+            </div>
+
+            <!-- Ringkasan -->
+            <div class="order-summary">
+                <div class="summary-title">Ringkasan Pesanan</div>
+                <div id="summaryItems"></div>
+                <div class="summary-total">
+                    <span>Total:</span>
+                    <span id="totalPrice">Rp 0</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span>💬</span>
+                <span>PESAN VIA WHATSAPP</span>
+            </button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mie Jebew. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Quantity handlers
+        document.querySelectorAll('.product-item').forEach(item => {
+            const checkbox = item.querySelector('.product-checkbox');
+            const qtyDisplay = item.querySelector('.qty-display');
+            const minusBtn = item.querySelector('.qty-minus');
+            const plusBtn = item.querySelector('.qty-plus');
+            let qty = 1;
+
+            plusBtn.addEventListener('click', () => {
+                qty++;
+                qtyDisplay.textContent = qty;
+                updateSummary();
+            });
+
+            minusBtn.addEventListener('click', () => {
+                if (qty > 1) {
+                    qty--;
+                    qtyDisplay.textContent = qty;
+                    updateSummary();
+                }
+            });
+
+            checkbox.addEventListener('change', () => {
+                qty = 1;
+                qtyDisplay.textContent = qty;
+                updateSummary();
+            });
+
+            item.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('qty-btn') && e.target.type !== 'checkbox') {
+                    checkbox.checked = !checkbox.checked;
+                    updateSummary();
+                }
+            });
+        });
+
+        function updateSummary() {
+            const items = [];
+            let total = 0;
+
+            document.querySelectorAll('.product-item').forEach(item => {
+                const checkbox = item.querySelector('.product-checkbox');
+                if (checkbox.checked) {
+                    const name = item.dataset.name;
+                    const price = parseInt(item.dataset.price);
+                    const qty = parseInt(item.querySelector('.qty-display').textContent);
+                    const subtotal = price * qty;
+                    
+                    items.push({ name, qty, subtotal });
+                    total += subtotal;
+                }
+            });
+
+            const summaryHTML = items.map(item => 
+                `<div class="summary-item">
+                    <span>${item.name} (${item.qty}x)</span>
+                    <span>Rp ${item.subtotal.toLocaleString('id-ID')}</span>
+                </div>`
+            ).join('');
+
+            document.getElementById('summaryItems').innerHTML = summaryHTML || '<div class="summary-item"><span>Belum ada item dipilih</span></div>';
+            document.getElementById('totalPrice').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const notelp = document.getElementById('notelp').value;
+            const alamat = document.getElementById('alamat').value;
+            const delivery = document.querySelector('input[name="delivery"]:checked')?.value || '';
+            const level = document.querySelector('input[name="level"]:checked')?.value || '';
+            const catatan = document.getElementById('catatan').value;
+
+            let pesanan = '';
+            let total = 0;
+
+            document.querySelectorAll('.product-item').forEach(item => {
+                const checkbox = item.querySelector('.product-checkbox');
+                if (checkbox.checked) {
+                    const name = item.dataset.name;
+                    const price = parseInt(item.dataset.price);
+                    const qty = parseInt(item.querySelector('.qty-display').textContent);
+                    const subtotal = price * qty;
+                    
+                    pesanan += `\n• ${name} (${qty}x) - Rp ${subtotal.toLocaleString('id-ID')}`;
+                    total += subtotal;
+                }
+            });
+
+            if (!pesanan) {
+                alert('Silakan pilih minimal 1 menu!');
+                return;
+            }
+
+            if (!delivery || !level) {
+                alert('Silakan lengkapi semua data yang diperlukan!');
+                return;
+            }
+
+            const message = `*PESANAN MIE JEBEW*\n\n` +
+                `*Data Pemesan:*\n` +
+                `Nama: ${nama}\n` +
+                `No. HP: ${notelp}\n` +
+                `Alamat: ${alamat}\n` +
+                `Metode: ${delivery}\n\n` +
+                `*Pesanan:*${pesanan}\n` +
+                `*Level Pedas:* ${level}\n\n` +
+                `*Total: Rp ${total.toLocaleString('id-ID')}*\n\n` +
+                `${catatan ? `Catatan: ${catatan}\n\n` : ''}` +
+                `Terima kasih! 🌶️🔥`;
+
+            const whatsappNumber = '6285256788547';
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappURL, '_blank');
+        });
+
+        // Initialize
+        updateSummary();
+    </script>
+</body>
+</html>

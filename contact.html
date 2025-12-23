@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - Mie Jebew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --flame-red: #D32F2F;
+            --deep-red: #8B0000;
+            --sunset-orange: #FF6B35;
+            --warm-yellow: #FFB300;
+            --cream: #FFF8E7;
+            --dark-brown: #2C1810;
+            --charcoal: #1A1A1A;
+            --soft-white: #FAFAFA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background: var(--soft-white);
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--flame-red);
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0 var(--sunset-orange);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--sunset-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--sunset-orange);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .page-header {
+            margin-top: 80px;
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, var(--deep-red) 0%, var(--sunset-orange) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        .contact-section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(211, 47, 47, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 5px 15px rgba(255, 107, 53, 0.2));
+        }
+
+        .contact-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--flame-red);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-desc {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .contact-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--flame-red), var(--sunset-orange));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(211, 47, 47, 0.4);
+        }
+
+        .hours-section {
+            background: var(--cream);
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .hours-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hours-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--deep-red);
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .hours-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .hours-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 2px solid var(--cream);
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--charcoal);
+            letter-spacing: 2px;
+        }
+
+        .hours-time {
+            font-size: 1.2rem;
+            color: var(--flame-red);
+            font-weight: 700;
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, var(--sunset-orange), var(--warm-yellow));
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            color: var(--dark-brown);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 2rem;
+        }
+
+        .delivery-section {
+            padding: 6rem 5%;
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .delivery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .delivery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            color: var(--sunset-orange);
+        }
+
+        .delivery-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            opacity: 0.9;
+        }
+
+        .delivery-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .delivery-option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .delivery-option:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-10px);
+            border-color: var(--sunset-orange);
+        }
+
+        .delivery-icon-large {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .delivery-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            color: var(--sunset-orange);
+        }
+
+        .delivery-text {
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .map-section {
+            padding: 6rem 5%;
+            background: var(--soft-white);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .map-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--deep-red);
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .map-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .map-placeholder {
+            height: 450px;
+            background: linear-gradient(135deg, var(--cream), white);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 2px dashed var(--sunset-orange);
+        }
+
+        .map-placeholder-icon {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .map-placeholder-text {
+            font-size: 1.5rem;
+            color: var(--charcoal);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .map-placeholder-address {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        footer {
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--sunset-orange);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 3rem; }
+            .hours-title, .delivery-title, .map-title { font-size: 2.5rem; }
+            .nav-links { gap: 1.5rem; }
+            .nav-links a { font-size: 0.85rem; }
+            .logo { font-size: 2rem; }
+            .contact-grid, .delivery-options { grid-template-columns: 1fr; }
+            .hours-item { flex-direction: column; text-align: center; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">MIE JEBEW</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Tentang Kami</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html">Pesan</a></li>
+                <li><a href="contact.html" class="active">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Hubungi Kami</h1>
+        <p>Siap Melayani Anda dengan Senang Hati</p>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3 class="contact-title">TELEPON</h3>
+                <p class="contact-info">0852-5678-8547</p>
+                <p class="contact-desc">Hubungi kami langsung untuk pemesanan atau pertanyaan. Kami siap membantu!</p>
+                <a href="tel:+6285256788547" class="contact-button">Hubungi Sekarang</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <h3 class="contact-title">WHATSAPP</h3>
+                <p class="contact-info">0852-5678-8547</p>
+                <p class="contact-desc">Chat via WhatsApp untuk pemesanan cepat dan mudah. Fast response!</p>
+                <a href="https://wa.me/6285256788547" target="_blank" class="contact-button">Chat WA</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">📷</div>
+                <h3 class="contact-title">INSTAGRAM</h3>
+                <p class="contact-info">@miie.jebew</p>
+                <p class="contact-desc">Follow untuk update menu, promo, dan challenge pedas! Jangan lupa tag kami!</p>
+                <a href="https://instagram.com/miie.jebew" target="_blank" class="contact-button">Follow Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="hours-section">
+        <div class="hours-container">
+            <h2 class="hours-title">Jam Operasional</h2>
+            <p class="hours-subtitle">Kami buka setiap hari untuk melayani Anda</p>
+            
+            <div class="hours-box">
+                <div class="hours-item">
+                    <span class="hours-day">SENIN - MINGGU</span>
+                    <span class="hours-time">09.00 - 22.00 WIB</span>
+                </div>
+                <div class="hours-item">
+                    <span class="hours-day">HARI LIBUR</span>
+                    <span class="hours-time">09.00 - 22.00 WIB</span>
+                </div>
+            </div>
+
+            <div class="promo-banner">
+                🎉 PROMO WEEKEND: Buy 1 Get 1 Topping Gratis! Setiap Sabtu & Minggu 🎉
+            </div>
+        </div>
+    </section>
+
+    <section class="delivery-section">
+        <div class="delivery-container">
+            <h2 class="delivery-title">Cara Pesan</h2>
+            <p class="delivery-subtitle">Pilih cara pemesanan yang paling nyaman untuk Anda</p>
+            
+            <div class="delivery-options">
+                <div class="delivery-option">
+                    <div class="delivery-icon-large">🏪</div>
+                    <h3 class="delivery-name">DINE IN</h3>
+                    <p class="delivery-text">Datang langsung ke lokasi kami di Jl. Rusa, Pangkajene. Nikmati suasana hangat dan pelayanan ramah!</p>
+                </div>
+
+                <div class="delivery-option">
+                    <div class="delivery-icon-large">📱</div>
+                    <h3 class="delivery-name">WHATSAPP</h3>
+                    <p class="delivery-text">Pesan via WhatsApp untuk take away atau delivery. Cepat, mudah, dan praktis!</p>
+                </div>
+
+                <div class="delivery-option">
+                    <div class="delivery-icon-large">🛵</div>
+                    <h3 class="delivery-name">DELIVERY</h3>
+                    <p class="delivery-text">Order via Gojek, Grab, atau ShopeeFood. Gratis ongkir untuk pemesanan minimal Rp50.000!</p>
+                </div>
+
+                <div class="delivery-option">
+                    <div class="delivery-icon-large">🥡</div>
+                    <h3 class="delivery-name">TAKE AWAY</h3>
+                    <p class="delivery-text">Pesan via telepon atau WA, lalu ambil di tempat. Hemat waktu dan tetap praktis!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="map-container">
+            <h2 class="map-title">Lokasi Kami</h2>
+            <p class="map-subtitle">Kunjungi kami di alamat berikut</p>
+            
+            <div class="map-placeholder">
+                <div class="map-placeholder-icon">📍</div>
+                <p class="map-placeholder-text">Mie Jebew</p>
+                <p class="map-placeholder-address">Jl. Rusa, Pangkajene, Sulawesi Selatan</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com/miie.jebew" target="_blank" title="Instagram">📷</a>
+            <a href="https://wa.me/6285256788547" target="_blank" title="WhatsApp">💬</a>
+            <a href="#" title="Facebook">👍</a>
+        </div>
+        <p>&copy; 2025 Mie Jebew. All Rights Reserved.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">#MieJebew #PedasBikinNagih</p>
+    </footer>
+</body>
+</html>

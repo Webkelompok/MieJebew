@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mie Jebew - Pedasnya Bikin Nagih!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --flame-red: #D32F2F;
+            --deep-red: #8B0000;
+            --sunset-orange: #FF6B35;
+            --warm-yellow: #FFB300;
+            --cream: #FFF8E7;
+            --dark-brown: #2C1810;
+            --charcoal: #1A1A1A;
+            --soft-white: #FAFAFA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background: var(--soft-white);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--flame-red);
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0 var(--sunset-orange);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--sunset-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--sunset-orange);
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--deep-red) 0%, var(--flame-red) 50%, var(--sunset-orange) 100%);
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .flame-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: white;
+            color: var(--flame-red);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--sunset-orange);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            color: white;
+        }
+
+        .level-section {
+            padding: 8rem 5%;
+            background: var(--cream);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--deep-red);
+            font-weight: 900;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 5rem;
+            font-weight: 300;
+        }
+
+        .levels-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .level-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sunset-orange), var(--flame-red));
+        }
+
+        .level-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(211, 47, 47, 0.2);
+        }
+
+        .level-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--flame-red);
+            margin-bottom: 1rem;
+        }
+
+        .level-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+            font-weight: 700;
+        }
+
+        .level-desc {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .features-section {
+            padding: 8rem 5%;
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 5px 15px rgba(255, 107, 53, 0.3));
+        }
+
+        .feature-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            color: var(--sunset-orange);
+        }
+
+        .feature-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        .contact-section {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--sunset-orange), var(--warm-yellow));
+            color: var(--charcoal);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--flame-red);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .contact-info {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        footer {
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--sunset-orange);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2.5rem; }
+            .nav-links { gap: 1.5rem; }
+            .nav-links a { font-size: 0.85rem; }
+            .logo { font-size: 2rem; }
+            .levels-container, .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">MIE JEBEW</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Tentang Kami</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html">Pesan</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="flame-particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 40%; animation-delay: 0.5s;"></div>
+            <div class="particle" style="left: 50%; animation-delay: 1.5s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 2.5s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 1.2s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 0.8s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 2.2s;"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Mie Jebew</h1>
+            <p class="hero-subtitle">Pedasnya Bikin Nagih! Rasa yang Nggak Terlupakan</p>
+            <a href="order.html" class="cta-button">PESAN SEKARANG</a>
+        </div>
+    </section>
+
+    <section class="level-section">
+        <h2 class="section-title">Pilih Level Pedasmu</h2>
+        <p class="section-subtitle">Dari santai sampai ekstrem - Kamu yang tentukan!</p>
+        
+        <div class="levels-container">
+            <div class="level-card">
+                <div class="level-number">LVL 1</div>
+                <h3 class="level-name">Santai</h3>
+                <p class="level-desc">Cocok buat pemula! Pedas ringan yang masih bisa dinikmati sambil ngobrol. Rasanya pas, nggak bikin berlinang air mata tapi tetap ada kick pedasnya.</p>
+            </div>
+
+            <div class="level-card">
+                <div class="level-number">LVL 5</div>
+                <h3 class="level-name">Sedang</h3>
+                <p class="level-desc">Mulai serius nih! Pedas yang bikin hangat dari dalam, campur cabai rawit segar yang bikin keringat mulai keluar. Perfect buat pecinta pedas menengah.</p>
+            </div>
+
+            <div class="level-card">
+                <div class="level-number">LVL 10</div>
+                <h3 class="level-name">Jebew Banget!</h3>
+                <p class="level-desc">Ekstrem untuk pemberani sejati! Level neraka yang bikin mata berair, napas tersengal, tapi nagih abis. Ada tantangan foto? Siap menang diskon!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h3 class="feature-title">Buka Setiap Hari</h3>
+                <p class="feature-text">09.00 - 22.00 WIB. Pagi untuk sarapan pedas, malam untuk nongkrong. Weekend ada promo spesial!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-content">
+            <h2 class="section-title" style="color: var(--dark-brown);">Yuk, Cobain Sekarang!</h2>
+            <p class="section-subtitle" style="color: var(--dark-brown); font-size: 1.1rem;">Pesan mudah & cepat - Delivery available!</p>
+            
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-label">WHATSAPP</div>
+                    <div class="contact-info">0852-5678-8547</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">INSTAGRAM</div>
+                    <div class="contact-info">@miie.jebew</div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-label">LOKASI</div>
+                    <div class="contact-info">Jl. Rusa, Pangkajene</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com/miie.jebew" title="Instagram">📷</a>
+            <a href="https://wa.me/6285256788547" title="WhatsApp">💬</a>
+            <a href="#" title="Facebook">👍</a>
+        </div>
+        <p>&copy; 2025 Mie Jebew. All Rights Reserved.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">#MieJebew #PedasBikinNagih #JebewinHariKamu</p>
+    </footer>
+</body>
+</html>
